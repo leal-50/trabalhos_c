@@ -1,1 +1,28 @@
+#include <stdio.h>
 
+int main() {
+
+    int r = 0;
+    int b = 0;
+
+
+    for (int t = 0; t < 5; t++){
+        printf("Torre - Direita\n");
+    }
+
+    printf("\n");
+
+    while (b < 5) {
+        printf("Bispo - Cima e Direita\n");
+        b ++;
+    }
+
+    printf("\n");
+
+    do {
+        printf("Rainha - Esquerda\n");
+        r++;
+    } while (r < 8);
+    
+    return 0;
+}
