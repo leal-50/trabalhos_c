@@ -5,13 +5,14 @@ int main() {
     int r = 0;
     int b = 0;
 
-
+    // Loop para a Torre se mover para direita
     for (int t = 0; t < 5; t++){
         printf("Torre - Direita\n");
     }
 
     printf("\n");
 
+    // Loop para o Bispo se mover para cima e direita(diagonal)
     while (b < 5) {
         printf("Bispo - Cima e Direita\n");
         b ++;
@@ -19,6 +20,7 @@ int main() {
 
     printf("\n");
 
+    // Loop para a Rainha se mover para a esquerda
     do {
         printf("Rainha - Esquerda\n");
         r++;
