@@ -1,1 +1,48 @@
+#include <stdio.h>
 
+void moverTorre(int casas) {
+    if (casas > 0) {
+        printf("Torre - Direita\n");
+        moverTorre(casas - 1);
+    }
+}
+
+void moverBispo(int casas) {
+    for (int b = 1; b <= 5; b++) {
+        printf("Bispo - Cima\n");
+        for (int b1 = 1; b1 <= 1; b1++) { 
+            printf("Bispo - Direita\n");
+        }
+    }
+}
+
+void moverRainha(int casas) {
+    if (casas > 0) {
+        printf("Rainha - Esquerda\n");
+        moverRainha(casas - 1);
+    }
+}
+
+int main() {
+
+    moverTorre(5);
+    printf("\n");
+    moverBispo(5);
+    printf("\n");
+    moverRainha(8);
+    printf("\n");
+
+
+    for (int c = 0, c1= 0; c < 2; c++)
+    {
+        printf("Cavalo - Baixo\n");
+        while (c1 < c) {
+            printf("Cavalo - Esquerda\n");
+            c1++;
+            break;
+        }
+        
+    }
+
+    return 0;
+}
