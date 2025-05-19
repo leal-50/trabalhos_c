@@ -1,1 +1,207 @@
+/*Habilidades especiais e áreas de efeito
 
+
+Neste desafio final, você adicionará um toque estratégico ao seu jogo de Batalha Naval, implementando habilidades especiais com áreas de efeito distintas. Você continuará trabalhando no mesmo projeto iniciado nos níveis anteriores, adicionando a lógica para representar e exibir essas habilidades no tabuleiro.
+
+
+O que você vai fazer
+
+
+Você deve modificar o seu programa em C para:
+ 
+
+Definir o Tabuleiro: Mantenha o tabuleiro 10x10 que você criou no nível anterior. Ele servirá como base para visualizar as áreas de efeito das habilidades.
+ 
+Criar Matrizes de Habilidade: Crie três matrizes separadas, cada uma representando a área de efeito de uma habilidade especial:
+ 
+Cone: Uma matriz que represente uma área em forma de cone, com o ponto de origem no topo e expandindo-se em direção à base. Imagine um cone apontando para baixo. A matriz deve representar essa forma, com o ponto de origem (o topo do cone) na parte superior e a área se expandindo para baixo.
+ 
+Cruz: Uma matriz que represente uma área em forma de cruz, com o ponto de origem no centro. 
+ 
+Octaedro: Uma matriz que represente a vista frontal de um octaedro (imagine como se estivesse olhando diretamente para ele), resultando em um formato que se assemelha a um losango, com o ponto de origem no centro.
+ 
+As matrizes de habilidade devem indicar quais posições são afetadas pela habilidade com o valor 1, e quais não são afetadas com o valor 0. Defina um tamanho razoável para as matrizes de habilidade (por exemplo, 5x5 ou 7x7).
+ 
+Integrar Habilidades ao Tabuleiro:
+ 
+Defina um ponto de origem para cada habilidade no tabuleiro (coordenadas linha e coluna). Este ponto de origem será o centro da habilidade, a partir do qual a área de efeito será calculada.
+ 
+Crie a lógica para sobrepor a matriz de habilidade ao tabuleiro, centrando a matriz de habilidade no ponto de origem definido.
+ 
+As posições do tabuleiro que estiverem dentro da área de efeito da habilidade (valor 1 na matriz de habilidade) devem ser marcadas visualmente. Utilize um valor diferente de 0 e 3 para representar as posições afetadas pela habilidade (por exemplo, o valor 5).
+ 
+Exibir o Tabuleiro com Habilidade: Utilize loops aninhados e o comando printf para exibir o tabuleiro no console, mostrando as áreas afetadas pelas habilidades. Utilize caracteres diferentes para representar:
+ 
+Água (0)
+ 
+Navio (3)
+ 
+Área afetada pela habilidade (5)
+ 
+Utilizar Condicionais: As matrizes de habilidades devem ser construídas de forma dinâmica, utilizando condicionais dentro de loops aninhados. A sobreposição das habilidades no tabuleiro também deve utilizar condicionais para garantir que a área de efeito permaneça dentro dos limites do tabuleiro.
+ 
+
+Exemplo de saída de habilidade em cone:
+
+0 0 3 0 0
+
+0 3 3 3 0 
+
+3 3 3 3 3
+
+ 
+
+ 
+
+Exemplo de saída de habilidade em cruz:
+
+0 0 3 0 0 
+
+3 3 3 3 3 
+
+0 0 3 0 0
+
+ 
+
+ 
+
+Exemplo de saída de habilidade em octaedro:
+
+0 0 3 0 0 
+
+0 3 3 3 0 
+
+0 0 3 0 0 
+
+ 
+
+
+Requisitos funcionais
+
+
+O programa deve criar as matrizes de efeito para as habilidades Cone, Cruz e Octaedro.
+ 
+As matrizes de habilidade devem utilizar os valores 0 e 1 para indicar as áreas não afetadas e afetadas, respectivamente.
+ 
+O programa deve permitir definir um ponto de origem para cada habilidade no tabuleiro.
+O programa deve sobrepor as matrizes de habilidade ao tabuleiro, marcando as áreas afetadas.
+ 
+A saída do programa deve exibir o tabuleiro com os navios e as áreas de efeito das habilidades, utilizando diferentes caracteres para cada elemento.
+ 
+A construção das matrizes de habilidade e a sobreposição no tabuleiro devem obrigatoriamente utilizar estruturas de repetição aninhadas e condicionais.*/
+
+#include <stdio.h>
+
+int main() {
+
+    int tabuleiro[10][10] = {0}; // Inicializa o tabuleiro com 0 (água)
+    int i, j;
+
+
+    // Posiciona os navios horizontalmente
+    for (i = 0; i < 1; i++) {
+        for (j = 0; j < 3; j++) {
+            tabuleiro[i][j] = 3; // Representa o navio com 3
+        }
+    }
+
+    // Posiciona os navios verticalmente
+    for (i = 3; i < 6; i++) {
+        for (j = 4; j < 5; j++) {
+            tabuleiro[i][j] = 3; // Representa o navio com 3
+        }
+    }
+
+    // Posiciona os navios diagonalmente (um navio na diagonal principal)
+    for (i = 6; i < 9; i++) {
+        tabuleiro[i][i] = 3; // Representa o navio com 3
+    }
+
+    // Posiciona os navios diagonalmente (um navio na diagonal secundária)
+    for (i = 0; i < 3; i++) {
+        tabuleiro[i][9 - i] = 3; // Representa o navio com 3
+    }
+
+    // Define a matriz de habilidade em cone
+    int cone[3][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1}
+    };
+    int cone_x = 1; // Ponto de origem no tabuleiro
+    int cone_y = 2; // Ponto de origem no tabuleiro
+    
+    // Sobrepõe a matriz de habilidade em cone ao tabuleiro
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 5; j++) {
+            if (cone[i][j] == 1) {
+                int x = cone_x + i - 1; // Ajusta a posição no tabuleiro
+                int y = cone_y + j - 1; // Ajusta a posição no tabuleiro
+                if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+                    tabuleiro[x][y] = 5; // Marca a área afetada pela habilidade
+                }
+            }
+        }
+    }
+    
+    // Define a matriz de habilidade em cruz
+    int cruz[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0}
+    };
+    int cruz_x = 4; // Ponto de origem no tabuleiro
+    int cruz_y = 2; // Ponto de origem no tabuleiro
+    
+    // Sobrepõe a matriz de habilidade em cruz ao tabuleiro
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            if (cruz[i][j] == 1) {
+                int x = cruz_x + i - 2; // Ajusta a posição no tabuleiro
+                int y = cruz_y + j + 3; // Ajusta a posição no tabuleiro
+                if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+                    tabuleiro[x][y] = 5; // Marca a área afetada pela habilidade
+                }
+            }
+        }
+    }
+    
+    // Define a matriz de habilidade em octaedro
+    int octaedro[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0}
+    };
+    int octaedro_x = 7; // Ponto de origem no tabuleiro
+    int octaedro_y = 2; // Ponto de origem no tabuleiro
+    
+    // Sobrepõe a matriz de habilidade em octaedro ao tabuleiro
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            if (octaedro[i][j] == 1) {
+                int x = octaedro_x + i - 2; // Ajusta a posição no tabuleiro
+                int y = octaedro_y + j - 2; // Ajusta a posição no tabuleiro
+                if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+                    tabuleiro[x][y] = 8; // Marca a área afetada pela habilidade
+                }
+            }
+        }
+    }
+
+    // Exibe o tabuleiro
+    printf("TABULEIRO BATALHA NAVAL\n");
+    printf("\n");
+
+    for (i = 0; i < 10; i++) {
+        for (j = 0; j < 10; j++) {
+            printf(" %d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
